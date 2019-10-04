@@ -1,20 +1,26 @@
 $(document).ready(function(){
     $("#change_name").click(function(e){
         e.preventDefault();
-        var name = document.getElementById("myDiv");
+        var name = $(this).text();
+        $('#name').html('<input type="text" name="show" placeholder="Измените имя" id="in">' +
+            '<button name="save" id="save">Save</button>');
+        $('#save').click(function (e) {
+            e.preventDefault();
+            var newValue = $('#in').val();
+            $("#name").html(newValue);
+            //console.log(newValue);
+            //var showNew = $('#name').text(newValue).val();
+
+        //var name = document.getElementById();
             $.post("update.php",{
-                name:name
+                show: newValue
             }, function(data) {
-                if(data=='Email и пароль неверные!'){
+                if(data=='Вы изменили имя!'){
                     alert(data);
-                } else if(data=='Вы успешно вошли!'){
-                    //$("form")[0].reset();
-                    alert(data);
-                    //window.location.replace("home.php");
-                } else{
+                }else {
                     alert(data);
                 }
             });
-
+        });
     });
 });

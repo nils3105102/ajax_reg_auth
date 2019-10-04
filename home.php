@@ -9,11 +9,12 @@ session_start();
     <script type="text/javascript" src="update.js"></script>
 </head>
 <body>
-<form  method="post">
-    <h2>Добро пожаловать,<span id="name"><?php echo $name = @$_SESSION["name"]; ?></span></h2>
-
+<form  method="post" id="form" action="update.php">
+    <h2>Добро пожаловать,<span id="name"><?php echo @$_SESSION["name"]; ?></span></h2>
+    <!--<input type="text" name="name" placeholder="Изменить имя">-->
+    <button name="change_name" id="change_name">Изменить имя</button>
 </form>
-<button name="change_name" id="change_name">Изменить имя</button>
+
 <a href="logout.php"><button  name="submit">Выйти</button></a>
 </body>
 </html>

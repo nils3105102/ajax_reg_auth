@@ -1,4 +1,5 @@
 <?php
+session_start();
 $host = 'localhost';
 $db = 'reg_author';
 $user = 'daniil';
@@ -19,10 +20,21 @@ try {
 } catch (PDOException $e) {
     die('Подключение не удалось: ' . $e->getMessage());
 }
-$id = @$_SESSION['id'];
-$stmt = $pdo->prepare("UPDATE `registration` SET name = 'Да' WHERE id=?");
-$stmt->bindParam(1, $id);
-$stmt->execute();
-$data = $stmt->fetchAll(PDO::FETCH_ASSOC);
-//print_r($data);
+
+    $id = @$_SESSION['id'];
+    $name = htmlspecialchars($_POST['show']);
+    $stmt = $pdo->prepare("UPDATE `registration` SET name=? WHERE id=?");
+
+    $stmt->bindParam(1, $name);
+    $stmt->bindParam(2, $id);
+
+    $stmt->execute();
+    $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+     if ($stmt) {
+         $_SESSION['name'] = $name;
+        echo "Вы изменили имя!";
+    } else {
+        echo "Ошибка!";
+    }
 ?>
